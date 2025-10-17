@@ -64,7 +64,7 @@ namespace YamlTextEditor
             int y = 10;
             foreach (var kv in configMap)
             {
-                var lbl = new Label() { Text = kv.Key, Left = 10, Top = y + 5, Width = 300, Font = new Font("Arial", 10, FontStyle.Regular )};
+                var lbl = new Label() { Text = kv.Key, Left = 10, Top = y + 5, Width = 300, Font = new Font("Arial", 10, FontStyle.Regular) };
                 var txt = new TextBox() { Left = 320, Top = y, Width = 250, Text = kv.Value };
                 var btn = new Button() { Left = 600, Top = y, Height = 30, Width = 150, Text = "Apply" };
                 btn.Click += (s, e) =>
@@ -296,9 +296,9 @@ namespace YamlTextEditor
 
             }
 
-           // var words = new List<string> { "scheduler", "command", "database", "python" };
+            // var words = new List<string> { "scheduler", "command", "database", "python" };
             RichTextHighlighter.HighlightWordsregex(richTextBox1, words, Color.Yellow);
-
+            MessageBox.Show("All Configuratins applied. You can now save the updated yaml file.");
 
 
         }
@@ -325,6 +325,28 @@ namespace YamlTextEditor
             {
                 isEnableSingleApplyEnabled = false;
             }
+        }
+
+        private void btnSaveUpdatedYaml_Click(object sender, EventArgs e)
+        {
+            //if (string.IsNullOrEmpty(yamlFilePath))
+            //{
+            //    MessageBox.Show("Load a YAML file first.");
+            //    return;
+            //}
+            //File.WriteAllText(yamlFilePath, richTextBox1.Text);
+            //MessageBox.Show("YAML saved successfully!");
+
+
+            // Prepare output folder
+            string inputDir = Path.GetDirectoryName(yamlFilePath)!;
+            string outputDir = Path.Combine(inputDir, "output");
+            Directory.CreateDirectory(outputDir);
+            string outputPath = Path.Combine(outputDir, "updated.yaml");
+
+            File.WriteAllText(outputPath, richTextBox1.Text, Encoding.UTF8);
+            MessageBox.Show($"Updated YAML saved to: {outputPath}");
+
         }
     }
 }

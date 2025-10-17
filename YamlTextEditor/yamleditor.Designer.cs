@@ -36,12 +36,13 @@
             lblinputyamlfile = new Label();
             btnloadparamterfile = new Button();
             btnLoadYaml = new Button();
+            chkEnableSingleApply = new CheckBox();
             chkEnplaceEditing = new CheckBox();
             lblParameterFile = new Label();
             panel3 = new Panel();
             btnApplyAll = new Button();
             pnlsideui = new Panel();
-            chkEnableSingleApply = new CheckBox();
+            btnSaveUpdatedYaml = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -91,6 +92,7 @@
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel2.Controls.Add(btnSaveUpdatedYaml);
             panel2.Controls.Add(btnGenerateParamPath);
             panel2.Controls.Add(lblinputyamlfile);
             panel2.Controls.Add(btnloadparamterfile);
@@ -102,7 +104,7 @@
             // 
             // btnGenerateParamPath
             // 
-            btnGenerateParamPath.Location = new Point(340, 4);
+            btnGenerateParamPath.Location = new Point(486, 4);
             btnGenerateParamPath.Name = "btnGenerateParamPath";
             btnGenerateParamPath.Size = new Size(161, 29);
             btnGenerateParamPath.TabIndex = 3;
@@ -138,6 +140,17 @@
             btnLoadYaml.Text = "Load Input YAML ";
             btnLoadYaml.UseVisualStyleBackColor = true;
             btnLoadYaml.Click += btnLoadYaml_Click;
+            // 
+            // chkEnableSingleApply
+            // 
+            chkEnableSingleApply.AutoSize = true;
+            chkEnableSingleApply.Location = new Point(11, 34);
+            chkEnableSingleApply.Name = "chkEnableSingleApply";
+            chkEnableSingleApply.Size = new Size(164, 24);
+            chkEnableSingleApply.TabIndex = 5;
+            chkEnableSingleApply.Text = "Enable Single Apply";
+            chkEnableSingleApply.UseVisualStyleBackColor = true;
+            chkEnableSingleApply.CheckedChanged += chkEnableSingleApply_CheckedChanged;
             // 
             // chkEnplaceEditing
             // 
@@ -190,16 +203,15 @@
             pnlsideui.Size = new Size(251, 437);
             pnlsideui.TabIndex = 0;
             // 
-            // chkEnableSingleApply
+            // btnSaveUpdatedYaml
             // 
-            chkEnableSingleApply.AutoSize = true;
-            chkEnableSingleApply.Location = new Point(11, 34);
-            chkEnableSingleApply.Name = "chkEnableSingleApply";
-            chkEnableSingleApply.Size = new Size(164, 24);
-            chkEnableSingleApply.TabIndex = 5;
-            chkEnableSingleApply.Text = "Enable Single Apply";
-            chkEnableSingleApply.UseVisualStyleBackColor = true;
-            chkEnableSingleApply.CheckedChanged += chkEnableSingleApply_CheckedChanged;
+            btnSaveUpdatedYaml.Location = new Point(340, 4);
+            btnSaveUpdatedYaml.Name = "btnSaveUpdatedYaml";
+            btnSaveUpdatedYaml.Size = new Size(140, 29);
+            btnSaveUpdatedYaml.TabIndex = 4;
+            btnSaveUpdatedYaml.Text = "Save Updated File";
+            btnSaveUpdatedYaml.UseVisualStyleBackColor = true;
+            btnSaveUpdatedYaml.Click += btnSaveUpdatedYaml_Click;
             // 
             // yamleditor
             // 
@@ -237,5 +249,6 @@
         private Button btnGenerateParamPath;
         private CheckBox chkEnplaceEditing;
         private CheckBox chkEnableSingleApply;
+        private Button btnSaveUpdatedYaml;
     }
 }
