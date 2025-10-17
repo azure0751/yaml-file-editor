@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+using System.IO;
 using YamlDotNet.RepresentationModel;
 
 namespace YamlTextEditor
@@ -11,50 +8,46 @@ namespace YamlTextEditor
     internal class YamlFlattener
     {
         /// <summary>
-        /// Recursively flattens a YAML file into colon-separated key paths with values.
-        /// Example: scheduler:jobs:syncReports:command="python sync_reports.py"
+        /// Flattens a YAML file and separates duplicates into another collection.
         /// </summary>
-        public static List<string> FlattenYaml(string yamlFilePath)
+        public static void FlattenYaml(string yamlFilePath, out List<string> uniqueRecords, out List<string> duplicateRecords)
         {
-            var result = new List<string>();
-
             using var reader = new StreamReader(yamlFilePath);
-            var yaml = new YamlStream();
-            yaml.Load(reader);
-
-            if (yaml.Documents.Count == 0)
-                return result;
-
-            var root = (YamlMappingNode)yaml.Documents[0].RootNode;
-            FlattenNode(root, "", result);
-
-            return result;
+            string yamlContent = reader.ReadToEnd();
+            FlattenYamlFromString(yamlContent, out uniqueRecords, out duplicateRecords);
         }
 
-        
-
-        public static List<string> FlattenYamlFromString(string yamlContent)
+        /// <summary>
+        /// Flattens a YAML string into colon-separated key paths with values.
+        /// Duplicates are separated into a different collection.
+        /// </summary>
+        public static void FlattenYamlFromString(string yamlContent, out List<string> uniqueRecords, out List<string> duplicateRecords)
         {
-            var result = new List<string>();
+            uniqueRecords = new List<string>();
+            duplicateRecords = new List<string>();
 
             if (string.IsNullOrWhiteSpace(yamlContent))
-                return result;
+                return;
 
             var yaml = new YamlStream();
             using var reader = new StringReader(yamlContent);
             yaml.Load(reader);
 
             if (yaml.Documents.Count == 0)
-                return result;
+                return;
 
             var root = yaml.Documents[0].RootNode as YamlMappingNode;
-            if (root != null)
-                FlattenNode(root, "", result);
+            if (root == null)
+                return;
 
-            return result;
+            var seenKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            FlattenNode(root, "", uniqueRecords, duplicateRecords, seenKeys);
         }
 
-        private static void FlattenNode(YamlNode node, string prefix, List<string> result)
+        /// <summary>
+        /// Recursive node traversal for flattening YAML and detecting duplicates.
+        /// </summary>
+        private static void FlattenNode(YamlNode node, string prefix, List<string> uniqueRecords, List<string> duplicateRecords, HashSet<string> seenKeys)
         {
             if (node is YamlMappingNode mappingNode)
             {
@@ -62,7 +55,7 @@ namespace YamlTextEditor
                 {
                     var key = ((YamlScalarNode)entry.Key).Value;
                     string newPrefix = string.IsNullOrEmpty(prefix) ? key : $"{prefix}:{key}";
-                    FlattenNode(entry.Value, newPrefix, result);
+                    FlattenNode(entry.Value, newPrefix, uniqueRecords, duplicateRecords, seenKeys);
                 }
             }
             else if (node is YamlSequenceNode sequenceNode)
@@ -71,7 +64,7 @@ namespace YamlTextEditor
                 foreach (var item in sequenceNode.Children)
                 {
                     string newPrefix = $"{prefix}:{index}";
-                    FlattenNode(item, newPrefix, result);
+                    FlattenNode(item, newPrefix, uniqueRecords, duplicateRecords, seenKeys);
                     index++;
                 }
             }
@@ -79,15 +72,21 @@ namespace YamlTextEditor
             {
                 string value = scalarNode.Value ?? "";
                 string formattedValue = NeedsQuoting(value) ? $"\"{value}\"" : value;
-                result.Add($"{prefix}={formattedValue}");
+                string entry = $"{prefix}={formattedValue}";
+
+                if (!seenKeys.Add(prefix))
+                    duplicateRecords.Add(entry);
+                else
+                    uniqueRecords.Add(entry);
             }
         }
 
+        /// <summary>
+        /// Determines whether the value should be enclosed in quotes.
+        /// </summary>
         private static bool NeedsQuoting(string value)
         {
-            // Quote if contains spaces or special characters
             return value.Contains(" ") || value.Contains(":") || value.Contains("/") || value.Contains("@");
         }
-
     }
 }

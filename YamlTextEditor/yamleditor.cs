@@ -223,10 +223,16 @@ namespace YamlTextEditor
 
         private void btnGenerateParamPath_Click(object sender, EventArgs e)
         {
-            var flattened = YamlFlattener.FlattenYamlFromString(richTextBox1.Text);
-            ShowSelectableMessage("Details", FlattenedListToString(flattened));
+            YamlFlattener.FlattenYamlFromString(richTextBox1.Text, out List<string> uniqueRecords, out var duplicateRecords);
 
-            MessageBox.Show(FlattenedListToString(flattened));
+            //ShowSelectableMessage("Details", FlattenedListToString(uniqueRecords));
+
+            //ShowSelectableMessage("Duplicates", FlattenedListToString(duplicateRecords));
+
+            string detailedFlattened = $"Details :{System.Environment.NewLine} {FlattenedListToString(uniqueRecords)} {System.Environment.NewLine}  Duplicates {System.Environment.NewLine} {FlattenedListToString(duplicateRecords)}";
+
+            ShowSelectableMessage("Flattened : ", detailedFlattened);
+            // MessageBox.Show(FlattenedListToString(uniqueRecords));
 
         }
 
@@ -277,13 +283,22 @@ namespace YamlTextEditor
 
         private void btnApplyAll_Click(object sender, EventArgs e)
         {
+            var words = new List<string>();
+
             foreach (var kv in configMap)
             {
 
                 string str = $"{kv.Key}={kv.Value}";
 
                 ApplyConfigToYaml(str);
+
+                words.Add($"{kv.Value}");
+
             }
+
+           // var words = new List<string> { "scheduler", "command", "database", "python" };
+            RichTextHighlighter.HighlightWords(richTextBox1, words, Color.Yellow, caseSensitive: false);
+
 
 
         }
