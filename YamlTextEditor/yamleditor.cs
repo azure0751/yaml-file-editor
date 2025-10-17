@@ -297,7 +297,7 @@ namespace YamlTextEditor
             }
 
            // var words = new List<string> { "scheduler", "command", "database", "python" };
-            RichTextHighlighter.HighlightWords(richTextBox1, words, Color.Yellow, caseSensitive: false);
+            RichTextHighlighter.HighlightWordsregex(richTextBox1, words, Color.Yellow);
 
 
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace YamlTextEditor
@@ -60,6 +61,46 @@ namespace YamlTextEditor
             rtb.Select(selStart, selLength);
             rtb.SelectionBackColor = Color.Transparent;
             rtb.ScrollToCaret();
+        }
+    
+
+
+    /// <summary>
+    /// Highlights all exact whole-word matches of multiple search terms in a RichTextBox.
+    /// </summary>
+    public static void HighlightWordsregex(RichTextBox rtb, List<string> searchTerms, Color highlightColor)
+        {
+            if (rtb == null || searchTerms == null || searchTerms.Count == 0)
+                return;
+
+            // Save user’s current selection
+            int selStart = rtb.SelectionStart;
+            int selLength = rtb.SelectionLength;
+            Color originalBackColor = rtb.SelectionBackColor;
+
+            // Clear previous highlights
+            rtb.SelectAll();
+            rtb.SelectionBackColor = rtb.BackColor;
+
+            string text = rtb.Text;
+
+            foreach (var term in searchTerms)
+            {
+                if (string.IsNullOrWhiteSpace(term))
+                    continue;
+
+                // Use \b for word boundaries and Regex.Escape to handle special chars
+                var pattern = $@"\b{Regex.Escape(term)}\b";
+                foreach (Match match in Regex.Matches(text, pattern, RegexOptions.IgnoreCase))
+                {
+                    rtb.Select(match.Index, match.Length);
+                    rtb.SelectionBackColor = highlightColor;
+                }
+            }
+
+            // Restore user’s cursor and selection
+            rtb.Select(selStart, selLength);
+            rtb.SelectionBackColor = originalBackColor;
         }
     }
 }
