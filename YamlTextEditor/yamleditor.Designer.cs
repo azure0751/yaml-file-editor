@@ -36,10 +36,12 @@
             lblinputyamlfile = new Label();
             btnloadparamterfile = new Button();
             btnLoadYaml = new Button();
+            chkEnplaceEditing = new CheckBox();
             lblParameterFile = new Label();
             panel3 = new Panel();
             btnApplyAll = new Button();
             pnlsideui = new Panel();
+            chkEnableSingleApply = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -68,6 +70,8 @@
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(chkEnableSingleApply);
+            splitContainer1.Panel2.Controls.Add(chkEnplaceEditing);
             splitContainer1.Panel2.Controls.Add(lblParameterFile);
             splitContainer1.Panel2.Controls.Add(panel3);
             splitContainer1.Panel2.Controls.Add(pnlsideui);
@@ -135,6 +139,17 @@
             btnLoadYaml.UseVisualStyleBackColor = true;
             btnLoadYaml.Click += btnLoadYaml_Click;
             // 
+            // chkEnplaceEditing
+            // 
+            chkEnplaceEditing.AutoSize = true;
+            chkEnplaceEditing.Location = new Point(11, 8);
+            chkEnplaceEditing.Name = "chkEnplaceEditing";
+            chkEnplaceEditing.Size = new Size(182, 24);
+            chkEnplaceEditing.TabIndex = 4;
+            chkEnplaceEditing.Text = "Enable In Place Editing";
+            chkEnplaceEditing.UseVisualStyleBackColor = true;
+            chkEnplaceEditing.CheckedChanged += chkEnplaceEditing_CheckedChanged;
+            // 
             // lblParameterFile
             // 
             lblParameterFile.AutoSize = true;
@@ -175,6 +190,17 @@
             pnlsideui.Size = new Size(251, 437);
             pnlsideui.TabIndex = 0;
             // 
+            // chkEnableSingleApply
+            // 
+            chkEnableSingleApply.AutoSize = true;
+            chkEnableSingleApply.Location = new Point(11, 34);
+            chkEnableSingleApply.Name = "chkEnableSingleApply";
+            chkEnableSingleApply.Size = new Size(164, 24);
+            chkEnableSingleApply.TabIndex = 5;
+            chkEnableSingleApply.Text = "Enable Single Apply";
+            chkEnableSingleApply.UseVisualStyleBackColor = true;
+            chkEnableSingleApply.CheckedChanged += chkEnableSingleApply_CheckedChanged;
+            // 
             // yamleditor
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -209,5 +235,7 @@
         private Label lblinputyamlfile;
         private Label lblParameterFile;
         private Button btnGenerateParamPath;
+        private CheckBox chkEnplaceEditing;
+        private CheckBox chkEnableSingleApply;
     }
 }

@@ -14,6 +14,8 @@ namespace YamlTextEditor
     {
         private string yamlFilePath = "";
         private Dictionary<string, string> configMap = new();
+        private bool isEnplaceEditingEnabled = false;
+        private bool isEnableSingleApplyEnabled = false;
         public yamleditor()
         {
             InitializeComponent();
@@ -58,21 +60,24 @@ namespace YamlTextEditor
         // ---------------- Build Right-Side Editable UI ----------------
         private void BuildConfigUI()
         {
-            // pnlsideui.Controls.Clear();
+            pnlsideui.Controls.Clear();
             int y = 10;
             foreach (var kv in configMap)
             {
-                var lbl = new Label() { Text = kv.Key, Left = 10, Top = y + 5, Width = 300 };
+                var lbl = new Label() { Text = kv.Key, Left = 10, Top = y + 5, Width = 300, Font = new Font("Arial", 10, FontStyle.Regular )};
                 var txt = new TextBox() { Left = 320, Top = y, Width = 250, Text = kv.Value };
-                var btn = new Button() { Left = 520, Top = y, Height = 30, Width = 200, Text = "Apply" };
+                var btn = new Button() { Left = 600, Top = y, Height = 30, Width = 150, Text = "Apply" };
                 btn.Click += (s, e) =>
                 {
                     configMap[kv.Key] = txt.Text;
                     string str = $"{lbl.Text}={txt.Text}";
                     //MessageBox.Show($"{lbl.Text}={txt.Text}");
 
-                    ApplyConfigToYaml(str);
-                    SearchAndHighlight($"{txt.Text}");
+                    if (isEnableSingleApplyEnabled)
+                    {
+                        ApplyConfigToYaml(str);
+                        SearchAndHighlight($"{txt.Text}");
+                    }
                 };
 
                 txt.TextChanged += (s, e) =>
@@ -81,8 +86,11 @@ namespace YamlTextEditor
                     string str = $"{lbl.Text}={txt.Text}";
                     //MessageBox.Show($"{lbl.Text}={txt.Text}");
 
+                    if (isEnplaceEditingEnabled)
+                    {
+                        ApplyConfigToYaml(str);
+                    }
 
-                    ApplyConfigToYaml(str);
 
                 };
                 pnlsideui.Controls.Add(lbl);
@@ -276,8 +284,32 @@ namespace YamlTextEditor
 
                 ApplyConfigToYaml(str);
             }
-                 
-               
+
+
+        }
+
+        private void chkEnplaceEditing_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkEnplaceEditing.Checked)
+            {
+                isEnplaceEditingEnabled = true;
+            }
+            else
+            {
+                isEnplaceEditingEnabled = false;
+            }
+        }
+
+        private void chkEnableSingleApply_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkEnableSingleApply.Checked)
+            {
+                isEnableSingleApplyEnabled = true;
+            }
+            else
+            {
+                isEnableSingleApplyEnabled = false;
+            }
         }
     }
 }
