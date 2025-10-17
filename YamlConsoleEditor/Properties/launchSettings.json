@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "YamlConsoleEditor": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

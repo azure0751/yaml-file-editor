@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36310.24
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YamlConsoleEditor", "YamlConsoleEditor\YamlConsoleEditor.csproj", "{B0DE7B3B-6AAA-48B8-98F2-A6F3B0383978}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YamlTextEditor", "YamlTextEditor\YamlTextEditor.csproj", "{A0210A0A-F6F9-4D6B-9D19-826CA7234D70}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0DE7B3B-6AAA-48B8-98F2-A6F3B0383978}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0DE7B3B-6AAA-48B8-98F2-A6F3B0383978}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0DE7B3B-6AAA-48B8-98F2-A6F3B0383978}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0DE7B3B-6AAA-48B8-98F2-A6F3B0383978}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0210A0A-F6F9-4D6B-9D19-826CA7234D70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0210A0A-F6F9-4D6B-9D19-826CA7234D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0210A0A-F6F9-4D6B-9D19-826CA7234D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0210A0A-F6F9-4D6B-9D19-826CA7234D70}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EF1AC980-CE56-4F65-BCE6-F8724D1B5683}
+	EndGlobalSection
+EndGlobal
