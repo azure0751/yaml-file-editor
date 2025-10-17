@@ -32,6 +32,7 @@
             splitContainer1 = new SplitContainer();
             richTextBox1 = new RichTextBox();
             panel2 = new Panel();
+            btnGenerateParamPath = new Button();
             lblinputyamlfile = new Label();
             btnloadparamterfile = new Button();
             btnLoadYaml = new Button();
@@ -39,7 +40,6 @@
             panel3 = new Panel();
             btnApplyAll = new Button();
             pnlsideui = new Panel();
-            btnGenerateParamPath = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -95,6 +95,16 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(680, 74);
             panel2.TabIndex = 0;
+            // 
+            // btnGenerateParamPath
+            // 
+            btnGenerateParamPath.Location = new Point(340, 4);
+            btnGenerateParamPath.Name = "btnGenerateParamPath";
+            btnGenerateParamPath.Size = new Size(161, 29);
+            btnGenerateParamPath.TabIndex = 3;
+            btnGenerateParamPath.Text = "Generate Param Paths";
+            btnGenerateParamPath.UseVisualStyleBackColor = true;
+            btnGenerateParamPath.Click += btnGenerateParamPath_Click;
             // 
             // lblinputyamlfile
             // 
@@ -153,6 +163,7 @@
             btnApplyAll.TabIndex = 0;
             btnApplyAll.Text = "Apply All Configuration";
             btnApplyAll.UseVisualStyleBackColor = true;
+            btnApplyAll.Click += btnApplyAll_Click;
             // 
             // pnlsideui
             // 
@@ -163,16 +174,6 @@
             pnlsideui.Name = "pnlsideui";
             pnlsideui.Size = new Size(251, 437);
             pnlsideui.TabIndex = 0;
-            // 
-            // btnGenerateParamPath
-            // 
-            btnGenerateParamPath.Location = new Point(340, 4);
-            btnGenerateParamPath.Name = "btnGenerateParamPath";
-            btnGenerateParamPath.Size = new Size(161, 29);
-            btnGenerateParamPath.TabIndex = 3;
-            btnGenerateParamPath.Text = "Generate Param Paths";
-            btnGenerateParamPath.UseVisualStyleBackColor = true;
-            btnGenerateParamPath.Click += btnGenerateParamPath_Click;
             // 
             // yamleditor
             // 

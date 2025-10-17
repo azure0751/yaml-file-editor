@@ -219,7 +219,7 @@ namespace YamlTextEditor
             ShowSelectableMessage("Details", FlattenedListToString(flattened));
 
             MessageBox.Show(FlattenedListToString(flattened));
-           
+
         }
 
         /// <summary>
@@ -267,7 +267,17 @@ namespace YamlTextEditor
             form.ShowDialog();
         }
 
+        private void btnApplyAll_Click(object sender, EventArgs e)
+        {
+            foreach (var kv in configMap)
+            {
 
+                string str = $"{kv.Key}={kv.Value}";
 
+                ApplyConfigToYaml(str);
+            }
+                 
+               
+        }
     }
 }
